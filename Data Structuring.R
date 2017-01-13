@@ -31,3 +31,5 @@ Labels.FamStat <- list("Unknown" = 0, "Single"= 1, "Married" = 2, "Divorced" = 3
                        "Stand-alone"= 7, "Not Stand-alone"=8)
 
 Labels.CustType <- list("Private"= 0, )
+
+summary(lvm)
