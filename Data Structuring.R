@@ -43,4 +43,4 @@ Labels.Employ <- list("Unknown" = 0, "Employee" = 1, "Managing Employee" = 2,
                        "Self-employed" = 8, "Trainee" = 9, "Military/civil service" = 10,
                       "Retiree" = 11, "Unemployed" = 12, "Student" = 13, "Pol/Feu Lebenszeit" = 14,
                       "Clerk" = 15)
-
+summary(lvm)
