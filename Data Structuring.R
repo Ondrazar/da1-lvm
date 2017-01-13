@@ -15,38 +15,64 @@ options(scipen = 999)
 #Load the data into the working environment
 load("lvm.RData")
 
-#Exploring data and looking at its structure
+#Exploring data and looking at its initial structure
+
+MyLVM = lvm
 str(lvm)
 summary(lvm)
 
 #Give names to the columns  
-colnames(lvm) <- c("Employment Status","Family Status", "Gender","Customer Type", 
+colnames(MyLVM) <- c("Employment Status","Family Status", "Gender","Customer Type", 
                    "Age", "Cust. Location", "Vehicle", "Property", "Indemnity",
                    "Accident", "Legal", "Health", "Life", "Financial Serv.",
-                   "Total No. Contracts", "Total Premium", "Cust. ID")
+                   "Total No. Contracts", "Total Premium", "Cust. ID", "Portal Flag")
 
 
-#Asssign the correct values/labels to the categorical variables
+#Asssign the correct values/labels to the categorical variables, putting them into factors
+#to later run analysis.
 
-Labels.FamStat <- list("Unknown" = 0, "Single"= 1, "Married" = 2, "Divorced" = 3,
-                       "Widowed" = 4, "Alone" = 5, "Civil Partnership" = 6, 
-                       "Stand-alone"= 7, "Not Stand-alone"=8, "Dead" = 9, 
-                       "Long-term Relat" = 10)
+MyLVM$Gender <- factor(MyLVM$Gender,
+                     levels=c(1:2),
+                     labels= c("Male", "Female"))
 
-Labels.CustType <- list("Private"= 0, "Agriculture" = 1, "Commercial" =2)
+#6 is labeled as "NA" as there is no value for it in the 
+MyLVM$`Employment Status` <- factor(MyLVM$`Employment Status`,
+                                  levels= c(0:15),
+                                  labels = c("Unknown", "Employee", "Managing Employee",
+                                  "Worker", "Officials", "Clerk", "NA", "Freelancer",
+                                  "Self-employed", "Trainee", "Military/civil service",
+                                  "Retiree", "Unemployed", "Student", "Pol/Feu Lebenszeit",
+                                  "Beamter"))
 
-Labels.CustType <- list("Private"= 0, "Agriculture"= 1, "Commercial" = 2)
-
-Labels.Gender <- list ("Male" = 1, "Female" = 2)
-
-#6 is ommited as there is no 6 on the LVM data set
-Labels.Employ <- list("Unknown" = 0, "Employee" = 1, "Managing Employee" = 2,
-                       "Worker" = 3, "Officials" = 4, "Clerk"=5, "Freelancer" = 7,
-                       "Self-employed" = 8, "Trainee" = 9, "Military/civil service" = 10,
-                      "Retiree" = 11, "Unemployed" = 12, "Student" = 13, "Pol/Feu Lebenszeit" = 14,
-                      "Clerk" = 15)
+MyLVM$`Family Status` <- factor(MyLVM$`Family Status`,
+                                levels= c(0:10),
+                                labels = c("Unknown", "Single", "Married", "Divorced",
+                                           "Widowed", "Alone", "Civil Partnership", 
+                                           "Stand-alone", "Not Stand-alone", "Dead", 
+                                           "Long-term Relat"))
 
 
-lvm$Gender <- factor(lvm$Gender,
-                     levels=c(1:3),
-                     labels= )
+MyLVM$`Customer Type` <- factor(MyLVM$`Customer Type`,
+                                levels= c(0:2),
+                                labels = c("Private", "Agriculture", "Commercial"))
+
+#There are some small categories according to Employment Status and Family Status
+#it might make sense to group similar categories to increase balance between groups
+summary(MyLVM$`Employment Status`)
+
+#Order this later nicer
+#Unknown           Employee      Managing Employee                 Worker 
+#4871               11072                    742                   2525 
+#Officials          Clerk                     NA             Freelancer 
+#123                 321                      0                    112 
+#Self-employed     Trainee Military/civil service                Retiree 
+#1564                 343                      5                   1505 
+#Unemployed           Student     Pol/Feu Lebenszeit                Beamter 
+#694                    475                     94                    554 
+
+summary(MyLVM$`Family Status`)
+
+#Unknown            Single           Married          Divorced           Widowed             Alone 
+#2258              5021             13145               736               525               384 
+#Civil Partnership    Stand-alone   Not Stand-alone  Dead      Long-term Relat 
+#2230               243               274                26               158 
