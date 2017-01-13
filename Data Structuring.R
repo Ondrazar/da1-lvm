@@ -34,3 +34,9 @@ Labels.FamStat <- list("Unknown" = 0, "Single"= 1, "Married" = 2, "Divorced" = 3
 Labels.CustType <- list("Private"= 0, "Agriculture" = 1, "Commercial" =2)
 
 
+<<<<<<< HEAD
+=======
+Labels.CustType <- list("Private"= 0, )
+
+summary(lvm)
+>>>>>>> origin/master
