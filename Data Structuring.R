@@ -22,10 +22,10 @@ str(lvm)
 summary(lvm)
 
 #Give names to the columns  
-colnames(MyLVM) <- c("Employment Status","Family Status", "Gender","Customer Type", 
+colnames(MyLVM) <- c("Employment.Status","Family.Status", "Gender","Customer.Type", 
                    "Age", "Cust. Location", "Vehicle", "Property", "Indemnity",
-                   "Accident", "Legal", "Health", "Life", "Financial Serv.",
-                   "Total No. Contracts", "Total Premium", "Cust. ID", "Portal Flag")
+                   "Accident", "Legal", "Health", "Life", "Financial.Serv",
+                   "Total.Premium", "Total.No.Contracts", "Cust.ID", "Portal.Flag")
 
 
 #Asssign the correct values/labels to the categorical variables, putting them into factors
@@ -36,7 +36,7 @@ MyLVM$Gender <- factor(MyLVM$Gender,
                      labels= c("Male", "Female"))
 
 #6 is labeled as "NA" as there is no value for it in the 
-MyLVM$`Employment Status` <- factor(MyLVM$`Employment Status`,
+MyLVM$Employment.Status <- factor(MyLVM$Employment.Status,
                                   levels= c(0:15),
                                   labels = c("Unknown", "Employee", "Managing Employee",
                                   "Worker", "Officials", "Clerk", "NA", "Freelancer",
@@ -44,7 +44,7 @@ MyLVM$`Employment Status` <- factor(MyLVM$`Employment Status`,
                                   "Retiree", "Unemployed", "Student", "Pol/Feu Lebenszeit",
                                   "Beamter"))
 
-MyLVM$`Family Status` <- factor(MyLVM$`Family Status`,
+MyLVM$Family.Status <- factor(MyLVM$Family.Status,
                                 levels= c(0:10),
                                 labels = c("Unknown", "Single", "Married", "Divorced",
                                            "Widowed", "Alone", "Civil Partnership", 
@@ -52,13 +52,13 @@ MyLVM$`Family Status` <- factor(MyLVM$`Family Status`,
                                            "Long-term Relat"))
 
 
-MyLVM$`Customer Type` <- factor(MyLVM$`Customer Type`,
+MyLVM$Customer.Type <- factor(MyLVM$Customer.Type,
                                 levels= c(0:2),
                                 labels = c("Private", "Agriculture", "Commercial"))
 
 #There are some small categories according to Employment Status and Family Status
 #it might make sense to group similar categories to increase balance between groups
-summary(MyLVM$`Employment Status`)
+summary(MyLVM$Employment.Status)
 
 #Order this later nicer
 #Unknown           Employee      Managing Employee                 Worker 
@@ -70,9 +70,30 @@ summary(MyLVM$`Employment Status`)
 #Unemployed           Student     Pol/Feu Lebenszeit                Beamter 
 #694                    475                     94                    554 
 
-summary(MyLVM$`Family Status`)
+summary(MyLVM$Family.Status)
 
 #Unknown            Single           Married          Divorced           Widowed             Alone 
 #2258              5021             13145               736               525               384 
 #Civil Partnership    Stand-alone   Not Stand-alone  Dead      Long-term Relat 
 #2230               243               274                26               158 
+
+
+#Mix occupation factors: 
+# 'public service' -Officials, Clerk, Military, Police, Beamter
+# 'self-employment' -self-employed, freelance
+levels(MyLVM$Employment.Status) <- c("Unknown", "Employee", "Managing Employee",
+                                     "Worker", "Public Service", "Public Service", "NA", "Self-employed",
+                                     "Self-employed", "Trainee", "Public Service",
+                                     "Retiree", "Unemployed", "Student", "Public Service",
+                                     "Public Service")
+
+# Family status: single -stand-alone, single, alone
+levels(MyLVM$Family.Status) <- c("Unknown", "Single", "Married", "Divorced",
+                                 "Widowed", "Single", "Civil Partnership", 
+                                 "Single", "Not-alone", "Dead", 
+                                 "Long-term Relat")
+
+summary(MyLVM$Employment.Status)
+summary(MyLVM$Family.Status)
+summary(MyLVM$Portal.Flag)
+
