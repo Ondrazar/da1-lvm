@@ -23,6 +23,7 @@ colnames(lvm) <- c("Employment Status","Family Status", "Gender","Customer Type"
                    "Age", "Cust. Location", "Vehicle", "Property", "Indemnity",
                    "Accident", "Legal", "Health", "Life", "Financial Serv.",
                    "Total No. Contracts", "Total Premium", "Cust. ID")
+?factor()
 
 #Asssign the correct values/labels to the categorical variables
 
@@ -33,10 +34,13 @@ Labels.FamStat <- list("Unknown" = 0, "Single"= 1, "Married" = 2, "Divorced" = 3
 
 Labels.CustType <- list("Private"= 0, "Agriculture" = 1, "Commercial" =2)
 
+Labels.CustType <- list("Private"= 0, "Agriculture"= 1, "Commercial" = 2)
 
-<<<<<<< HEAD
-=======
-Labels.CustType <- list("Private"= 0, )
+#6 is ommited as there is no 6 on the LVM data set
+Labels.Occupat <- list("Unknown" = 0, "Employee" = 1, "Managing Employee" = 2,
+                       "Worker" = 3, "Officials" = 4, "Clerk"=5, "Freelancer" = 7,
+                       )
+  "0" = "Unknown","1"="Employee", "2"="Managing employee", "3"="Worker","4"= "Officials","5"= "Beamter", "7"="Freelancer",
+"8"= "Self-employed","9"= "Trainee","10"= "Military/civil service",
+"11"="Retiree","12"= "Unemployed","13"= "Student","14"= "Pol/Feu Lebenszeit", "15"="Beamter 
 
-summary(lvm)
->>>>>>> origin/master
