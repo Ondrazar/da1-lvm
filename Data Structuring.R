@@ -15,17 +15,17 @@ options(scipen = 999)
 #Load the data into the working environment
 load("lvm.RData")
 
-#Exploring data and looking at its stracture
+#Exploring data and looking at its structure
 str(lvm)
+summary(lvm)
 
 #Give names to the columns  
 colnames(lvm) <- c("Employment Status","Family Status", "Gender","Customer Type", 
                    "Age", "Cust. Location", "Vehicle", "Property", "Indemnity",
                    "Accident", "Legal", "Health", "Life", "Financial Serv.",
                    "Total No. Contracts", "Total Premium", "Cust. ID")
-factor(lvm$`Employment Status`)
 
-summary(lvm$`Employment Status`)
+
 #Asssign the correct values/labels to the categorical variables
 
 Labels.FamStat <- list("Unknown" = 0, "Single"= 1, "Married" = 2, "Divorced" = 3,
@@ -37,9 +37,16 @@ Labels.CustType <- list("Private"= 0, "Agriculture" = 1, "Commercial" =2)
 
 Labels.CustType <- list("Private"= 0, "Agriculture"= 1, "Commercial" = 2)
 
+Labels.Gender <- list ("Male" = 1, "Female" = 2)
+
 #6 is ommited as there is no 6 on the LVM data set
 Labels.Employ <- list("Unknown" = 0, "Employee" = 1, "Managing Employee" = 2,
                        "Worker" = 3, "Officials" = 4, "Clerk"=5, "Freelancer" = 7,
                        "Self-employed" = 8, "Trainee" = 9, "Military/civil service" = 10,
                       "Retiree" = 11, "Unemployed" = 12, "Student" = 13, "Pol/Feu Lebenszeit" = 14,
                       "Clerk" = 15)
+
+
+lvm$Gender <- factor(lvm$Gender,
+                     levels=c(1:3),
+                     labels= )
