@@ -28,6 +28,9 @@ colnames(lvm) <- c("Employment Status","Family Status", "Gender","Customer Type"
 
 Labels.FamStat <- list("Unknown" = 0, "Single"= 1, "Married" = 2, "Divorced" = 3,
                        "Widowed" = 4, "Alone" = 5, "Civil Partnership" = 6, 
-                       "Stand-alone"= 7, "Not Stand-alone"=8)
+                       "Stand-alone"= 7, "Not Stand-alone"=8, "Dead" = 9, 
+                       "Long-term Relat" = 10)
 
-Labels.CustType <- list("Private"= 0, )
+Labels.CustType <- list("Private"= 0, "Agriculture" = 1, "Commercial" =2)
+
+
