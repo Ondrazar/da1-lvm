@@ -21,9 +21,36 @@ MyLVM = lvm
 str(lvm)
 summary(lvm)
 
-#Give names to the columns  
+#----Variables identified in the dataset----
+
+# Categorical Variables:
+#1. beruf_stgl_schl : Employemnt Status
+#2. fam_stand_schl  : Family Status
+#3. anrede_schl     : Gender
+#4. kund_typ_schl   : Customer Type
+#5. kgs5            : Location ID
+#6. kd_id           : Customer ID
+#7. portal_flg      : Portal Flag
+
+# Metric Variables:
+#1. alter           : Age
+
+#- No. of Contracts per Type of Insurance
+#2. pg_k_anz        : Vehicle
+#3. pg_sach_anz     : Property
+#4. pg_ah_anz       : Indemnity
+#5. pg_au_anz       : Accident
+#6. pg_rs_anz       : Legal
+#7. pg_kv_anz       : Health
+#8. pg_lv_anz       : Life
+#9. pg_fdl_anz      : Financial Services
+
+#10. gesamtbeitrag  : Total Premium
+#11. vetrag_anz     : Total No. of Contracts
+
+#Give names to the columns to facilitate data reading
 colnames(MyLVM) <- c("Employment.Status","Family.Status", "Gender","Customer.Type", 
-                   "Age", "Cust. Location", "Vehicle", "Property", "Indemnity",
+                   "Age", "Cust.Location", "Vehicle", "Property", "Indemnity",
                    "Accident", "Legal", "Health", "Life", "Financial.Serv",
                    "Total.Premium", "Total.No.Contracts", "Cust.ID", "Portal.Flag")
 
@@ -35,7 +62,7 @@ MyLVM$Gender <- factor(MyLVM$Gender,
                      levels=c(1:2),
                      labels= c("Male", "Female"))
 
-#6 is labeled as "NA" as there is no value for it in the 
+
 MyLVM$Employment.Status <- factor(MyLVM$Employment.Status,
                                   levels= c(0:15),
                                   labels = c("Unknown", "Employee", "Managing Employee",
@@ -43,6 +70,7 @@ MyLVM$Employment.Status <- factor(MyLVM$Employment.Status,
                                   "Self-employed", "Trainee", "Military/civil service",
                                   "Retiree", "Unemployed", "Student", "Pol/Feu Lebenszeit",
                                   "Beamter"))
+# *6 is labeled as "NA" as there are no observations for it in the variable
 
 MyLVM$Family.Status <- factor(MyLVM$Family.Status,
                                 levels= c(0:10),
@@ -55,6 +83,11 @@ MyLVM$Family.Status <- factor(MyLVM$Family.Status,
 MyLVM$Customer.Type <- factor(MyLVM$Customer.Type,
                                 levels= c(0:2),
                                 labels = c("Private", "Agriculture", "Commercial"))
+
+MyLVM$Portal.Flag <- factor(MyLVM$Portal.Flag,
+                              levels= c(0:1),
+                              labels = c("Non.User", "User"))
+
 
 #There are some small categories according to Employment Status and Family Status
 #it might make sense to group similar categories to increase balance between groups
@@ -96,4 +129,26 @@ levels(MyLVM$Family.Status) <- c("Unknown", "Single", "Married", "Divorced",
 summary(MyLVM$Employment.Status)
 summary(MyLVM$Family.Status)
 summary(MyLVM$Portal.Flag)
+
+#Classify according to region
+#Load csv with city
+
+
+#Start checking relationhips among variables
+
+#1. Graph distribution of the categorical variables
+plot(factor(MyLVM$Employment.Status))
+plot(factor(MyLVM$Family.Status))
+plot(factor(MyLVM$Gender))
+plot(factor(MyLVM$Customer.Type))
+plot(factor(MyLVM$Portal.Flag))
+#for the regions missing
+
+
+
+
+
+
+
+
 
