@@ -126,47 +126,62 @@ levels(MyLVM$Family.Status) <- c("Unknown", "Single", "Married", "Divorced",
                                  "Single", "Not-alone", "Dead", 
                                  "Long-term Relat")
 
-summary(MyLVM$Employment.Status)
-summary(MyLVM$Family.Status)
-summary(MyLVM$Portal.Flag)
-
-#Classify according to region
-#Load csv with city
-
-
 #Ggplot theme setup
-present_theme <- theme_set(theme_update(axis.text = element_text(size = 15, colour = "black"), axis.title = element_text(size = 18, colour = "black", face = "bold"),
-                                        axis.text.x = element_text(angle = 0, hjust = 1), axis.title.y = element_text(margin = margin(0, 20, 0, 0)),
-                                        legend.title = element_blank(), legend.text = element_text(size = 40)))
-theme_set(theme_bw())
-theme_set(present_theme)
+theme_set(theme_bw()) # I like bw acually
+# present_theme <- theme_set(theme_update(axis.text = element_text(size = 15, colour = "black"), axis.title = element_text(size = 18, colour = "black", face = "bold"),
+#                                         axis.text.x = element_text(angle = 0, hjust = 1), axis.title.y = element_text(margin = margin(0, 20, 0, 0)),
+#                                         legend.title = element_blank(), legend.text = element_text(size = 40)))
+
+#theme_set(present_theme)
 
 #Start checking relationhips among variables
 
 #1. Graph distribution of the categorical variables
-# to be improved later
+# to be improved later - would be nice to have exact numbers next to the bars
+# and maybe precentages on the bars 
+library(ggplot2)
+
 ggplot(MyLVM,aes(x=reorder(Employment.Status,Employment.Status,
                      function(x)-length(x))))+ geom_bar() +
-  labs(x="Employment status",y="Number of people") + coord_flip()
+  labs(x="Employment status",y=element_blank()) + coord_flip()
 
 ggplot(MyLVM,aes(x=reorder(Family.Status,Family.Status,
                            function(x)-length(x))))+ geom_bar() +
-  labs(x="Family status",y="Number of people") + coord_flip()
+  labs(x="Family status",y=element_blank()) + coord_flip()
 
 ggplot(MyLVM,aes(x=reorder(Gender,Gender,
                            function(x)-length(x))))+ geom_bar() +
-  labs(x="Gender",y="Number of people")
+  labs(x="Gender",y=element_blank())
 
 ggplot(MyLVM,aes(x=reorder(Customer.Type,Customer.Type,
                            function(x)-length(x))))+ geom_bar() +
-  labs(x="Customer Type",y="Number of people")
+  labs(x="Customer Type",y=element_blank())
 
 ggplot(MyLVM,aes(x=reorder(Portal.Flag,Portal.Flag,
                            function(x)-length(x))))+ geom_bar() +
-  labs(x="Portal",y="Number of people")
+  labs(x="Portal",y=element_blank())
 
-#for the regions missing
-#better do map
+# Histogram overlaid with kernel density curve for Age
+ggplot(MyLVM, aes(x=Age)) + 
+  geom_histogram(aes(y=..density..),      # Histogram with density instead of count on y-axis
+                 binwidth=.5,
+                 colour="black", fill="white") +
+  geom_density(alpha=.2, fill="#FF6666")  # Overlay with transparent density plot
+
+# library(scales)
+
+summary(MyLVM$Total.No.Contracts) #max is 39 but only very new ppl have so many, maybe add actual numbers on top of the bars?
+ggplot(MyLVM,aes(x=reorder(Total.No.Contracts,Total.No.Contracts,
+                           function(x)-length(x))))+ geom_bar() +
+  labs(x="Contracts",y=element_blank()) + coord_cartesian(xlim = c(1, 15)) #zoom to 1 to 15
+# can someone add exponentionaly decreasing funcion on top of that - for comparison, looks almost decreasing exponenitonaly
+
+# just a histogram of groupped residential codes to get a gist
+ggplot(MyLVM, aes(Cust.Location)) + 
+  geom_histogram(binwidth = 1000) +
+  labs(x="District of Residence", y=element_blank())
+
+#better follow up with a map
 
 
 
