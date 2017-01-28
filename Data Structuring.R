@@ -126,14 +126,6 @@ levels(MyLVM$Family.Status) <- c("Unknown", "Single", "Married", "Divorced",
                                  "Single", "Not-alone", "Dead", 
                                  "Long-term Relat")
 
-summary(MyLVM$Employment.Status)
-summary(MyLVM$Family.Status)
-summary(MyLVM$Portal.Flag)
-
-#Classify according to region
-#Load csv with city
-
-
 #Ggplot theme setup
 theme_set(theme_bw()) # I like bw acually
 # present_theme <- theme_set(theme_update(axis.text = element_text(size = 15, colour = "black"), axis.title = element_text(size = 18, colour = "black", face = "bold"),
@@ -145,8 +137,9 @@ theme_set(theme_bw()) # I like bw acually
 #Start checking relationhips among variables
 
 #1. Graph distribution of the categorical variables
-# to be improved later - would me nice to have exact numbers next to the bars
+# to be improved later - would be nice to have exact numbers next to the bars
 # and maybe precentages on the bars 
+library(ggplot2)
 
 ggplot(MyLVM,aes(x=reorder(Employment.Status,Employment.Status,
                      function(x)-length(x))))+ geom_bar() +
@@ -175,7 +168,7 @@ ggplot(MyLVM, aes(x=Age)) +
                  colour="black", fill="white") +
   geom_density(alpha=.2, fill="#FF6666")  # Overlay with transparent density plot
 
-library(scales) # for coord_cartesian
+# library(scales)
 
 summary(MyLVM$Total.No.Contracts) #max is 39 but only very new ppl have so many, maybe add actual numbers on top of the bars?
 ggplot(MyLVM,aes(x=reorder(Total.No.Contracts,Total.No.Contracts,
@@ -188,10 +181,7 @@ ggplot(MyLVM, aes(Cust.Location)) +
   geom_histogram(binwidth = 1000) +
   labs(x="District of Residence", y=element_blank())
 
-
-
-#for the regions missing
-#better do map
+#better follow up with a map
 
 
 
