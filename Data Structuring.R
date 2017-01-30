@@ -12,6 +12,9 @@
 #Load the data into the working environment
 load("lvm.RData")
 
+#Load libraries and helper funcitons
+source('Functions for LVM.R')
+
 #Exploring data and looking at its initial structure, no NA's identified
 
 MyLVM = lvm
@@ -134,11 +137,11 @@ summary(MyLVM$Portal.Flag)
 
 map = readRDS("./DEU_adm1.rds") # Map of Germany
 
-regions = read.csv2("./Bundeslaender CSV.csv", sep = ",", encoding = "utf-8", header = TRUE)
+regions = read.csv2("./Bundeslaender CSV.csv", sep = ";", encoding = "utf-8", header = TRUE)
 regions$ID = str_pad(regions$ID, 2, pad = "0")
 
-landkreise = read.csv2("./Landkreise-Bevoelkerung CSV.csv", sep = ",", header = TRUE)
-names(landkreise)[names(landkreise) == "Schl??sselnummer"] = "ID" # Change name of the column for easier access
+landkreise = read.csv2("./Landkreise-Bevoelkerung CSV.csv", sep = ";", header = TRUE)
+names(landkreise)[names(landkreise) == "Schlüsselnummer"] = "ID" # Change name of the column for easier access
 landkreise$ID = str_pad(landkreise$ID, 5, pad = "0")
 landkreise$Insgesamt = as.numeric(str_replace_all(landkreise$Insgesamt, fixed(" "), ""))
 
@@ -182,7 +185,7 @@ col_no = cut(as.numeric(region_information$customers_region_percentage[as.numeri
 map$col_no = col_no
 map_customers_region_percentage = spplot(map, "col_no", col = grey(.4), col.regions = brewer.pal(8, "Greens"),
                                          colorkey = list(labels = list( 
-                                           labels = c("<0%", "0-5%", "5-10%", "10-15%", "15-20%", "25-30%", "30-35%", ">35%"),????????????????
+                                           labels = c("<0%", "0-5%", "5-10%", "10-15%", "15-20%", "25-30%", "30-35%", ">35%"),
                                            width = 2, cex = 1.5)),
                                          main = list("Distr. of LVM Customers per Region", cex = 2))
 
@@ -193,7 +196,7 @@ col_no = cut(as.numeric(region_information$customer_premium_region[as.numeric(ma
 map$col_no = col_no
 map_customer_premium_region = spplot(map, "col_no", col = grey(.4), col.regions = brewer.pal(6, "Greens"), 
                                      colorkey = list(labels = list( 
-                                       labels = c("<???600", "???600-???700", "???700-???800", "???800-???900", "???900-???1000", ">???1000"),????????????????
+                                       labels = c("<600", "600-700", "700-800", "800-900", "900-1000", ">1000"),
                                        width = 2, cex = 2)),
                                      main = list("Total Premium/Customer per Region", cex = 2))
 
